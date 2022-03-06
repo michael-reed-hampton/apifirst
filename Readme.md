@@ -23,3 +23,14 @@ it worked - http://localhost:8080/
 9.  Add .gitignore to root of project.
 10. Add files to git.    
 11. Commit all added files/dirs to git.
+12. Push the initial branch up to git.  Crested it on github, then...
+    `git remote add origin https://github.com/michael-reed-hampton/apifirst.git`
+    and
+    `git push -u origin master`
+13. Create branch to get going with 'real' code now. `git checkout -b add_openapi`
+14. Try to build it `./gradlew build`
+15. Try to run it `./gradlew bootRun`
+16.  Look at the docs page - http://localhost:8080/swagger-ui.html
+17.  Commit the changes to the branch.
+
+
