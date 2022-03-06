@@ -23,3 +23,9 @@ it worked - http://localhost:8080/
 9.  Add .gitignore to root of project.
 10. Add files to git.    
 11. Commit all added files/dirs to git.
+12. Push the initial branch up to git.  Crested it on github, then...
+    `git remote add origin https://github.com/michael-reed-hampton/apifirst.git`
+    and
+    `git push -u origin master`
+
+
