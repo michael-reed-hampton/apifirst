@@ -1,3 +1,7 @@
+# Start With spring Boot
+
+Note that this leverages https://www.baeldung.com/kotlin/swagger-spring-rest-api
+
 1. Use https://start.spring.io/ to get started.
 2. [Generate] creates a zip, named apifirst.zip in this case.
 3. Unzip into the root of the repo.../Users/mike/Github/apifirst
@@ -36,6 +40,15 @@ it worked - http://localhost:8080/
 19.  Checkout the master branch and pull down the changes.
      `git checkout master`
      `git pull origin master`
+# Start making API First
+1. Create branch to get going with 'api first' code now. `git checkout -b add_apifirst`
+2. Add to our project build.gradle.kts.  We add libraries and tasks to generate the server.
+3. Get the initial OpenAPI doc written up.
+    1. Use the template https://github.com/michael-reed-hampton/openapi-template as a starting point
+    2. For now just add it to the project.  Eventually we will have it in a separate repo.
+4. Add the controller and a very simple delegate implementation.
+    
+
      
 
 
