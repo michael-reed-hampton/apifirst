@@ -1,6 +1,8 @@
 # Start With spring Boot
 
-Note that this leverages https://www.baeldung.com/kotlin/swagger-spring-rest-api
+Note that this leverages 
+* https://www.baeldung.com/kotlin/swagger-spring-rest-api
+* https://reflectoring.io/spring-boot-openapi/
 
 1. Use https://start.spring.io/ to get started.
 2. [Generate] creates a zip, named apifirst.zip in this case.
