@@ -8,6 +8,9 @@ plugins {
 
 	// The following is needed below for org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 	id("org.openapi.generator") version "5.3.0"
+	// I want to be able to get the openapi file from another repo (SSOT)
+	// used in downloadOpenapi below
+	id("de.undercouch.download") version "5.0.2"
 }
 
 group = "name.hampton.mike"
@@ -42,12 +45,19 @@ dependencies {
 }
 
 val oasPackage = "name.hampton.mike.thing"
-val oasSpecLocation = "src/main/resources/thing-spec.yaml"
+// todo: currently the below is using the template, switch to the right one once you write it.
+val oasName = "template.openapi.yaml"
+val oasUrl = "https://raw.githubusercontent.com/michael-reed-hampton/openapi-template/main/$oasName"
+val oasSpecLocation = project.layout.buildDirectory.file(oasName)
 val oasGenOutputDir = project.layout.buildDirectory.dir("generated-oas")
 
+tasks.register("downloadOpenapi", de.undercouch.gradle.tasks.download.Download::class) {
+	src(oasUrl)
+	dest(oasSpecLocation.get().toString())
+}
 
 tasks.register("generateServer", org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
-	input = project.file(oasSpecLocation).path
+	input = oasSpecLocation.get().toString()
 	outputDir.set(oasGenOutputDir.get().toString())
 	modelPackage.set("$oasPackage.model")
 	apiPackage.set("$oasPackage.api")
@@ -78,6 +88,10 @@ tasks.withType<KotlinCompile> {
 	}
 	// We want to re-generate the server
 	dependsOn("generateServer")
+}
+
+tasks.named("generateServer") {
+	dependsOn(":downloadOpenapi")
 }
 
 tasks.withType<Test> {
