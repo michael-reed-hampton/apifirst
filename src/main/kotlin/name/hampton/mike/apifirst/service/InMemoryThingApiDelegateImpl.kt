@@ -15,7 +15,7 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
                 = getLogger(InMemoryThingApiDelegateImpl::class.java)
     }
     // ThingId -> Thing
-    val thingMap = mutableMapOf<Long, Thing>()
+    val thingMap = mutableMapOf<Int, Thing>()
 
     /**
      * @see ThingApi#addThing
@@ -32,7 +32,7 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
      * @see ThingApi#deleteThing
      */
     override fun deleteThing(
-        thingId: Long,
+        thingId: Int,
         apiKey: String?
     ): ResponseEntity<Unit> {
         thingMap.remove(thingId)?.let { return ResponseEntity.ok(Unit) }
@@ -87,7 +87,7 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
     /**
      * @see ThingApi#getThingById
      */
-    override fun getThingById(thingId: Long): ResponseEntity<Thing> {
+    override fun getThingById(thingId: Int): ResponseEntity<Thing> {
         loggerWithExplicitClass.debug("Id: $thingId, Thing: ${thingMap[thingId]}")
         thingMap[thingId]?.let { return ResponseEntity.ok(thingMap[thingId]) }
         loggerWithExplicitClass.debug("Id: $thingId, thingMap: $thingMap")

@@ -24,16 +24,16 @@ class TestDataInitializer(private val thingApiDelegate: ThingApiDelegate) {
     @EventListener(ApplicationReadyEvent::class)
     fun doSomethingAfterStartup() {
         loggerWithExplicitClass.debug("TestDataInitializer is going to load some testdata")
-        val cat1 = Category(id = Random.nextLong(), name = "Test")
+        val cat1 = Category(id = Random.nextInt(), name = "Test")
         val tags = mutableListOf<Tag>()
         for(n in 0..12) {
-            tags.add(Tag(id = Random.nextLong(), name = "Tag$n"))
+            tags.add(Tag(id = Random.nextInt(), name = "Tag$n"))
         }
         for(n in 0..12) {
             val thing = Thing(
                 name = "Thing$n",
                 photoUrls = listOf(),
-                id = Random.nextLong(),
+                id = Random.nextInt(),
                 category = cat1,
                 // Random size subset of tags.  We shuffle the tags each time, so we get
                 // random tags as well.
