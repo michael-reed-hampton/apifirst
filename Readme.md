@@ -49,6 +49,10 @@ it worked - http://localhost:8080/
     1. Use the template https://github.com/michael-reed-hampton/openapi-template as a starting point
     2. For now just add it to the project.  Eventually we will have it in a separate repo.
 4. Add the controller and a very simple delegate implementation.
+
+Adding some testing
+https://medium.com/backyard-programmers/kotlin-spring-boot-unit-testing-integration-testing-with-junit5-and-mockk-a2977bbe5711
+
     
 
      

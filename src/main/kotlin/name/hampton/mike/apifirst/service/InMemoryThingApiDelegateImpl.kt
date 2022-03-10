@@ -21,9 +21,12 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
      * @see ThingApi#addThing
      */
     override fun addThing(body: Thing): ResponseEntity<Unit> {
+        thingMap[body.id]?.let { return ResponseEntity(HttpStatus.CONFLICT) }
         body.id?.let {
             thingMap[body.id] = body
-            return ResponseEntity.ok(Unit)
+            // todo: This is what we want to return...
+            // return ResponseEntity.created(URI)
+            return ResponseEntity(HttpStatus.CREATED)
         }
         return ResponseEntity(HttpStatus.BAD_REQUEST)
     }
@@ -35,7 +38,10 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
         thingId: Int,
         apiKey: String?
     ): ResponseEntity<Unit> {
-        thingMap.remove(thingId)?.let { return ResponseEntity.ok(Unit) }
+        loggerWithExplicitClass.debug("Id: $thingId, Thing: ${thingMap[thingId]}")
+        thingMap.remove(thingId)?.let {
+            return ResponseEntity(HttpStatus.NO_CONTENT)
+        }
         return ResponseEntity(HttpStatus.NOT_FOUND)
     }
 
@@ -89,7 +95,7 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
      */
     override fun getThingById(thingId: Int): ResponseEntity<Thing> {
         loggerWithExplicitClass.debug("Id: $thingId, Thing: ${thingMap[thingId]}")
-        thingMap[thingId]?.let { return ResponseEntity.ok(thingMap[thingId]) }
+        thingMap[thingId]?.let { return ResponseEntity.ok(it) }
         loggerWithExplicitClass.debug("Id: $thingId, thingMap: $thingMap")
         return ResponseEntity(HttpStatus.NOT_FOUND)
     }

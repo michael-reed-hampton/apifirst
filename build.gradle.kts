@@ -27,7 +27,6 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	// Should the following be implementation("org.jetbrains.kotlin:kotlin-stdlib") ?
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 	// Add openapi
 	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.4")
@@ -42,6 +41,9 @@ dependencies {
 
 	implementation("ch.qos.logback:logback-classic:1.2.3")
 	implementation("ch.qos.logback:logback-core:1.2.3")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.mockk:mockk:1.10.4")
 }
 
 val oasPackage = "name.hampton.mike.thing"
