@@ -8,6 +8,7 @@ import name.hampton.mike.thing.model.Thing
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
+import java.time.OffsetDateTime
 
 @Component
 class TestDataInitializer(private val thingApiDelegate: ThingApiDelegate) {
@@ -32,6 +33,8 @@ class TestDataInitializer(private val thingApiDelegate: ThingApiDelegate) {
         val tag4 = Tag(id = 4, name = "Tag4")
         val tag5 = Tag(id = 5, name = "Tag5")
         val tag6 = Tag(id = 6, name = "Tag6")
+
+        val base = OffsetDateTime.now()
         getDelegate().addThing(
             Thing(
                 name = "Thing1",
@@ -40,7 +43,8 @@ class TestDataInitializer(private val thingApiDelegate: ThingApiDelegate) {
                 category = cat1,
                 tags = listOf(tag1, tag2, tag3),
                 // random status
-                status = Thing.Status.available
+                status = Thing.Status.available,
+                createDate = base.plusHours(1)
             )
         )
         getDelegate().addThing(
@@ -51,7 +55,8 @@ class TestDataInitializer(private val thingApiDelegate: ThingApiDelegate) {
                 category = cat1,
                 tags = listOf(),
                 // random status
-                status = Thing.Status.pending
+                status = Thing.Status.pending,
+                createDate = base.plusHours(2)
             )
         )
         getDelegate().addThing(
@@ -62,7 +67,8 @@ class TestDataInitializer(private val thingApiDelegate: ThingApiDelegate) {
                 category = cat1,
                 tags = listOf(tag4, tag5, tag6),
                 // random status
-                status = Thing.Status.sold
+                status = Thing.Status.sold,
+                createDate = base.plusHours(3)
             )
         )
         getDelegate().addThing(
@@ -73,7 +79,8 @@ class TestDataInitializer(private val thingApiDelegate: ThingApiDelegate) {
                 category = cat1,
                 tags = listOf(tag1, tag2, tag3, tag4, tag5, tag6),
                 // random status
-                status = Thing.Status.available
+                status = Thing.Status.available,
+                createDate = base.plusHours(4)
             )
         )
         getDelegate().addThing(
@@ -84,18 +91,20 @@ class TestDataInitializer(private val thingApiDelegate: ThingApiDelegate) {
                 category = cat1,
                 tags = listOf(tag1),
                 // random status
-                status = Thing.Status.pending
+                status = Thing.Status.pending,
+                createDate = base.plusHours(5)
             )
         )
         getDelegate().addThing(
             Thing(
-                name = "Thing6",
+                name = "0Thing6",
                 photoUrls = listOf(),
                 id = 6,
                 category = cat1,
                 tags = listOf(tag1, tag3, tag5),
                 // random status
-                status = Thing.Status.sold
+                status = Thing.Status.sold,
+                createDate = base.plusHours(6)
             )
         )
     }
