@@ -50,6 +50,43 @@ internal class ThingApiControllerTest @Autowired constructor(
     }
 
     @Nested
+    @DisplayName("GET /v1/thing/{thingId}")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class ListThings {
+        @Test
+        // @DirtiesContext
+        fun `should get all things`() {
+            // Make sure it is there
+            mockMvc.get(baseUrl)
+                .andDo { print() }
+                .andExpect {
+                    status { isOk() }
+                    content { contentType(MediaType.APPLICATION_JSON) }
+                    jsonPath("$[0].id") {
+                        value("1")
+                    }
+                    jsonPath("$[1].name") {
+                        value("Thing2")
+                    }
+                }
+        }
+        @Test
+        // @DirtiesContext
+        fun `should get all things sorted by name`() {
+            // Make sure it is there
+            mockMvc.get("$baseUrl?orderBy=name")
+                .andDo { print() }
+                .andExpect {
+                    status { isOk() }
+                    content { contentType(MediaType.APPLICATION_JSON) }
+                    jsonPath("$[0].id") {
+                        value("6")
+                    }
+                }
+        }
+    }
+
+    @Nested
     @DisplayName("POST /v1/thing/{thingId}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class AddThings {

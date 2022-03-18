@@ -48,8 +48,8 @@ dependencies {
 
 val oasPackage = "name.hampton.mike.thing"
 // todo: currently the below is using the template, switch to the right one once you write it.
-val oasName = "template.openapi.yaml"
-val oasUrl = "https://raw.githubusercontent.com/michael-reed-hampton/openapi-template/main/$oasName"
+val oasName = "example_openapi.yaml"
+val oasUrl = "https://raw.githubusercontent.com/michael-reed-hampton/apiFirstAPI/main/$oasName"
 val oasSpecLocation = project.layout.buildDirectory.file(oasName)
 val oasGenOutputDir = project.layout.buildDirectory.dir("generated-oas")
 

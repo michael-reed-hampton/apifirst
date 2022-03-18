@@ -53,6 +53,12 @@ it worked - http://localhost:8080/
 Adding some testing
 https://medium.com/backyard-programmers/kotlin-spring-boot-unit-testing-integration-testing-with-junit5-and-mockk-a2977bbe5711
 
+Move the api to its own repo so we can monkey with it - that is a big part of how I am doing this; separation.
+
+New API repo is https://github.com/michael-reed-hampton/apiFirstAPI.git
+And the new API document is https://raw.githubusercontent.com/michael-reed-hampton/apiFirstAPI/main/$oasName
+
+I changed the build to reflect this.
     
 
      

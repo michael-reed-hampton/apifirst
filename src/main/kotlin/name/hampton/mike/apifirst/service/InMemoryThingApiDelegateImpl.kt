@@ -13,6 +13,8 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
     companion object {
         private val loggerWithExplicitClass
                 = getLogger(InMemoryThingApiDelegateImpl::class.java)
+        @Suppress("SpellCheckingInspection")
+        const val PAGESIZE = 100
     }
     // ThingId -> Thing
     val thingMap = mutableMapOf<Int, Thing>()
@@ -61,7 +63,7 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
         val filteredMap = thingMap.filterValues { thingIt ->
             // Convert the things tags to strings so we can do an intersection properly
             val stringTags: List<String>? = thingIt.tags?.map { it.name.toString() }
-            // If the thing had tags then return true if the two lists intersection is non empty
+            // If the thing had tags then return true if the two lists intersection is nonempty
             // If the thing had no tags, just return false - it does not match
             val hasSome = stringTags?.let {
                 val intersection = tags.intersect(it.toSet())
@@ -98,6 +100,42 @@ class InMemoryThingApiDelegateImpl : ThingApiDelegate {
         thingMap[thingId]?.let { return ResponseEntity.ok(it) }
         loggerWithExplicitClass.debug("Id: $thingId, thingMap: $thingMap")
         return ResponseEntity(HttpStatus.NOT_FOUND)
+    }
+
+    /**
+     * @see ThingApi#listThings
+     */
+    override fun listThings(orderBy: String?,
+                   pageToken: String?): ResponseEntity<List<Thing>> {
+        var from = 0
+        pageToken?.let{ try{from = pageToken.toInt()}catch(_:Exception){} }
+        // Pagination is actually pretty complicated, especially
+        // since there is a sort included here.
+        // If the set of data changes between calls to pages,
+        // what should be returned?
+        // An item could be deleted, which might make items get missed in pages,
+        // items could be added, but maybe what the user wanted was the contents
+        // at the time of the first request.  If so, then additional
+        // filtering should be included, but data may still change
+        // while the response is processed.
+        // A mostly right way to do this is to hold the initial
+        // result set of the initial request, and paginate on that.  This is
+        // expensive to memory though.
+        //
+        // For now be naive, and do offset pagination.  Meaning the
+        // passed parameter if effectively the index (first is 0).
+
+        val pageSize = when {
+            (thingMap.size >= from + PAGESIZE) -> PAGESIZE
+            else -> (thingMap.size - from)
+        }
+        val theList = thingMap.values.toList()
+        val sortedList = when {
+            ("createDate" == orderBy) -> theList.sortedBy { it.createDate }
+            ("name" == orderBy) -> theList.sortedBy { it.name }
+            else -> theList
+        }
+        return ResponseEntity.ok(sortedList.subList(from, pageSize))
     }
 
     /**
