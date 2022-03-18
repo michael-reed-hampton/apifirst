@@ -29,9 +29,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 	// Add openapi
-	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.4")
-	implementation("org.springdoc:springdoc-openapi-ui:1.6.4")
-	implementation("org.springdoc:springdoc-openapi-kotlin:1.6.4")
+	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.6")
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
+	implementation("org.springdoc:springdoc-openapi-kotlin:1.6.6")
 
 	// Add moshi for Generating a Client From an Existing Specification.  "testImplementation"
 	// is in github, "implementation" is in website
@@ -39,17 +39,18 @@ dependencies {
 	// testImplementation("com.squareup.moshi:moshi-adapters:1.13.0")
 	// testImplementation("com.squareup.okhttp3:okhttp:4.9.3")
 
-	implementation("ch.qos.logback:logback-classic:1.2.3")
-	implementation("ch.qos.logback:logback-core:1.2.3")
+	implementation("ch.qos.logback:logback-classic:1.2.11")
+	implementation("ch.qos.logback:logback-core:1.2.11")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.mockk:mockk:1.10.4")
+	testImplementation("io.mockk:mockk:1.12.3")
 }
 
 val oasPackage = "name.hampton.mike.thing"
-// todo: currently the below is using the template, switch to the right one once you write it.
 val oasName = "example_openapi.yaml"
-val oasUrl = "https://raw.githubusercontent.com/michael-reed-hampton/apiFirstAPI/main/$oasName"
+val oasTagOrBranch = "main"
+
+val oasUrl = "https://raw.githubusercontent.com/michael-reed-hampton/apiFirstAPI/$oasTagOrBranch/$oasName"
 val oasSpecLocation = project.layout.buildDirectory.file(oasName)
 val oasGenOutputDir = project.layout.buildDirectory.dir("generated-oas")
 
