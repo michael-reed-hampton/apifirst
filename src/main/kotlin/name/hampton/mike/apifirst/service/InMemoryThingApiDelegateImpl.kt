@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
-@Service
+// Add tag to allow "Qualifying" this service.
+@Service(value="InMemory")
 class InMemoryThingApiDelegateImpl : ThingApiDelegate {
     companion object {
         private val loggerWithExplicitClass
