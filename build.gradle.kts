@@ -3,6 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.6.4"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
+	// JPA
+	id( "org.jetbrains.kotlin.plugin.jpa") version "1.6.20-RC2"
+	// This makes it unnecessary to declare all jpa classes as open
+	id("org.jetbrains.kotlin.plugin.allopen") version "1.6.20-RC2"
+
 	kotlin("jvm") version "1.6.10"
 	kotlin("plugin.spring") version "1.6.10"
 
@@ -11,6 +16,11 @@ plugins {
 	// I want to be able to get the openapi file from another repo (SSOT)
 	// used in downloadOpenapi below
 	id("de.undercouch.download") version "5.0.2"
+}
+
+allOpen {
+	// This makes it unnecessary to declare all jpa classes as open
+	annotations("javax.persistence.Entity", "javax.persistence.MappedSuperclass", "javax.persistence.Embedabble")
 }
 
 group = "name.hampton.mike"
@@ -32,6 +42,14 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.6")
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
 	implementation("org.springdoc:springdoc-openapi-kotlin:1.6.6")
+
+	// JPA
+	implementation("org.hibernate:hibernate-core:5.6.7.Final")
+	testImplementation("org.hibernate:hibernate-testing:5.6.7.Final")
+	testImplementation("com.h2database:h2:2.1.210")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	// H2 database
+	runtimeOnly("com.h2database:h2")
 
 	// Add moshi for Generating a Client From an Existing Specification.  "testImplementation"
 	// is in github, "implementation" is in website

@@ -59,7 +59,21 @@ New API repo is https://github.com/michael-reed-hampton/apiFirstAPI.git
 And the new API document is https://raw.githubusercontent.com/michael-reed-hampton/apiFirstAPI/main/$oasName
 
 I changed the build to reflect this.
+
+Note that http://localhost:8080/v3/api-docs serves the doc in a json format.
+I opened Postman and imported this using the "link" and it seems to have worked.
+This generated the collection with the baseurl even populated
     
+Work on adding jpa.
+https://www.baeldung.com/kotlin/jpa and
+https://www.jpa-buddy.com/blog/best-practices-and-common-pitfalls/
+This now persists 'ThingData', which is the data transfer object for 
+the data model in the API.  It is currently only persisting the 
+name of the thing.
+The next thing to do with this is to persist the other data elements 
+of the Thing - especially the 'one-to-many' items.
+
+
 
      
 
